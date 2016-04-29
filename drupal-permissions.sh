@@ -111,7 +111,7 @@ if [ -d ".git" ]; then
 	printf "rwx------ on .git/ directories and files in ${drupal_path}/.git\n"
 	cd ${drupal_path}
 	chmod -R u=rwx,go= .git
-	chmod u=rwx,go= .gitignore
+	chmod u=rw,go= .gitignore
 fi
 
 printf "rwx------ on various Drupal text files in   ${drupal_path}\n"
