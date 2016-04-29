@@ -84,9 +84,9 @@ find . -type f -exec chmod u=rw,g=r,o= '{}' \;
 printf "Changing permissions of \"files\" directories in \"${drupal_path}/sites\" to \"rwxrwx---\"...\n"
 cd ${drupal_path}/sites
 find . -type d -name files -exec chmod ug=rwx,o= '{}' \;
+
 printf "Changing permissions of all files inside all \"files\" directories in \"${drupal_path}/sites\" to \"rw-rw----\"...\n"
 printf "Changing permissions of all directories inside all \"files\" directories in \"${drupal_path}/sites\" to \"rwxrwx---\"...\n"
-
 for x in ./*/files; do
   printf "Changing permissions ${x} ...\n"
   find ${x} -type d -exec chmod ug=rwx,o= '{}' \;
