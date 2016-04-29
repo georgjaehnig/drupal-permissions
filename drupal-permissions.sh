@@ -63,7 +63,7 @@ if [ -z "${drupal_path}" ] || [ ! -d "${drupal_path}/sites" ] || [ ! -f "${drupa
   exit 1
 fi
 
-# Basic check to see if valiud user
+# Basic check to see if valid user
 if [ -z "${drupal_user}" ] || [ $(id -un ${drupal_user} 2> /dev/null) != "${drupal_user}" ]; then
   printf "Please provide a valid user.\n"
   print_help
