@@ -6,23 +6,6 @@
 # See README or code below for usage
 ##
 
-# Is this really necessary?
-if [ $(id -u) != 0 ]; then
-  printf "This script must be run as root.\n"
-  exit 1
-fi
-
-# Set (default) script arguments.
-drupal_path=${1%/}
-drupal_user=${2}
-httpd_group=${3}
-
-drupal_path=`realpath ${drupal_path}`
-
-if [ -z "${httpd_group}" ]; then
-	httpd_group=www-data
-fi
-
 # Help menu.
 print_help() {
 cat <<-HELP
@@ -42,6 +25,23 @@ Example: (sudo) bash ${0##*/} . john www-data
 HELP
 exit 0
 }
+
+# Is this really necessary?
+if [ $(id -u) != 0 ]; then
+  printf "This script must be run as root.\n"
+  exit 1
+fi
+
+# Set (default) script arguments.
+drupal_path=${1%/}
+drupal_user=${2}
+httpd_group=${3}
+
+drupal_path=`realpath ${drupal_path}`
+
+if [ -z "${httpd_group}" ]; then
+	httpd_group=www-data
+fi
 
 if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
   print_help
