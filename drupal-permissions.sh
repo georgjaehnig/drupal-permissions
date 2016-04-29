@@ -123,6 +123,7 @@ chmod u=rw,go= INSTALL.pgsql.txt
 chmod u=rw,go= INSTALL.txt
 chmod u=rw,go= LICENSE.txt
 chmod u=rw,go= MAINTAINERS.txt
+chmod u=rw,go= README.txt
 chmod u=rw,go= UPGRADE.txt
 
 
