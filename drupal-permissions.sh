@@ -101,7 +101,7 @@ find . -type d -name files -exec chmod ug=rwx,o= '{}' \;
 printf "rw-rw---- on all files       inside all /files directories in ${drupal_path}/sites,\n"
 printf "rwxrwx--- on all directories inside all /files directories in ${drupal_path}/sites:\n"
 for x in ./*/files; do
-  printf "\tChanging permissions in ${drupal_path}/sites/${x}\n"
+  printf "\tChanging permissions in `realpath ${x}`\n"
   find ${x} -type d -exec chmod ug=rwx,o= '{}' \;
   find ${x} -type f -exec chmod ug=rw,o= '{}' \;
 done
