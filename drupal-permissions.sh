@@ -17,6 +17,8 @@ drupal_path=${1%/}
 drupal_user=${2}
 httpd_group=${3}
 
+drupal_path=`realpath ${drupal_path}`
+
 if [ -z "${httpd_group}" ]; then
 	httpd_group=www-data
 fi
