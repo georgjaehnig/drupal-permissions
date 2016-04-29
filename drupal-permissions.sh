@@ -34,33 +34,33 @@ you need to provide the following arguments:
 2) Username of the user that you want to give files/directories ownership.
 3) HTTPD group name (defaults to www-data for Apache).
 
-Usage: (sudo) bash ${0##*/} --drupal_path=PATH --drupal_user=USER --httpd_group=GROUP
+Usage: (sudo) bash ${0##*/} PATH USER [GROUP]
 
-Example: (sudo) bash ${0##*/} --drupal_path=/usr/local/apache2/htdocs --drupal_user=john --httpd_group=www-data
+Example: (sudo) bash ${0##*/} . john
+Example: (sudo) bash ${0##*/} . john www-data
 
 HELP
 exit 0
 }
 
-# Parse command line arguments.
-while [ $# -gt 0 ]; do
-  case "$1" in
-    --drupal_path=*) 
-      drupal_path="${1#*=}"
-      ;;
-    --drupal_user=*)
-      drupal_user="${1#*=}"
-      ;;
-    --httpd_group=*)
-      httpd_group="${1#*=}"
-      ;;
-    --help) print_help;;
-    *)
-      printf "Invalid argument, run --help for valid arguments.\n";
-      exit 1
-  esac
-  shift
-done
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
+  print_help
+	exit
+fi
+
+cat <<-CONFIRM
+The following settings will be used:
+
+Drupal path: ${drupal_path}
+Drupal user: ${drupal_user}
+HTTPD group: ${httpd_group}
+
+CONFIRM
+read -p "Proceed? [y/N]" -n 1 -r
+if [[ $REPLY != ^[Yy]$ ]]
+then
+	exit 0
+fi
 
 # Basic check to see if this is a valid Drupal install.
 if [ -z "${drupal_path}" ] || [ ! -d "${drupal_path}/sites" ] || [ ! -f "${drupal_path}/modules/system/system.module" ]; then
