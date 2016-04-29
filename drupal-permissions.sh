@@ -17,7 +17,7 @@ you need to provide the following arguments:
 2) Username of the user that you want to give files/directories ownership.
 3) HTTPD group name (defaults to www-data for Apache).
 
-Usage: (sudo) bash ${0##*/} PATH USER [GROUP]
+Usage: (sudo) bash ${0##*/} DRUPAL_PATH DRUPAL_USER [HTTPD_GROUP]
 
 Example: (sudo) bash ${0##*/} . john
 Example: (sudo) bash ${0##*/} . john www-data

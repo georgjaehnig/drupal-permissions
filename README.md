@@ -10,8 +10,9 @@ This script is used to fix permissions of a Drupal installation you need to prov
 
 Usage:
     
-    (sudo) bash drupal-permissions.sh --drupal_path=PATH --drupal_user=USER --httpd_group=GROUP
+		(sudo) bash ${0##*/} DRUPAL_PATH DRUPAL_USER [HTTPD_GROUP]
 
-Example: 
+Examples: 
 
-    (sudo) bash drupal-permissions.sh --drupal_path=/usr/local/apache2/htdocs --drupal_user=john --httpd_group=www-data
+		(sudo) bash ${0##*/} . john
+		(sudo) bash ${0##*/} . john www-data
