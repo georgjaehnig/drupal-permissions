@@ -15,7 +15,11 @@ fi
 # Set (default) script arguments.
 drupal_path=${1%/}
 drupal_user=${2}
-httpd_group="${3:-www-data}"
+httpd_group=${3}
+
+if [ -z "${httpd_group}" ]; then
+	httpd_group=www-data
+fi
 
 # Help menu.
 print_help() {
