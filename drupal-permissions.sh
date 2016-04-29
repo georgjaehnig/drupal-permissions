@@ -28,7 +28,7 @@ HELP
 # Check for correct number of arguments.
 if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
   print_help
-	exit
+	exit 0
 fi
 
 # Check for root being the executing user.
