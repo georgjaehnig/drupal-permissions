@@ -23,7 +23,6 @@ Example: (sudo) bash ${0##*/} . john
 Example: (sudo) bash ${0##*/} . john www-data
 
 HELP
-exit 0
 }
 
 # Check for correct number of arguments.
