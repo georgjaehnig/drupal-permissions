@@ -71,7 +71,10 @@ if [ -z "${drupal_user}" ] || [ $(id -un ${drupal_user} 2> /dev/null) != "${drup
 fi
 
 cd $drupal_path
-printf "Changing ownership of all contents of ${drupal_path}:\n user => \"${drupal_user}\" \t group => \"${httpd_group}\"\n"
+printf "Changing ownership of all contents in ${drupal_path} to\n"
+printf "\tuser:  ${drupal_user}\n"
+printf "\tgroup: ${httpd_group}\n"
+
 chown -R ${drupal_user}:${httpd_group} .
 
 printf "Changing permissions...\n"
