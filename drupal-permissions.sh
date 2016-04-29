@@ -49,6 +49,18 @@ if [ -z "${httpd_group}" ]; then
 	httpd_group=www-data
 fi
 
+# Basic check to see if this is a valid Drupal install.
+if [ -z "${drupal_path}" ] || [ ! -d "${drupal_path}/sites" ] || [ ! -f "${drupal_path}/modules/system/system.module" ]; then
+  printf "Error: ${drupal_path} is not a valid Drupal path.\n"
+  exit 1
+fi
+
+# Basic check to see if a valid user is provided.
+if [ -z "${drupal_user}" ] || [ "$(id -un "${drupal_user}" 2> /dev/null)" != "${drupal_user}" ]; then
+  printf "Error: ${drupal_user} is not a valid user.\n"
+  exit 1
+fi
+
 cat <<-CONFIRM
 The following settings will be used:
 
@@ -60,23 +72,8 @@ CONFIRM
 read -p "Proceed? [y/N]" -n 1 -r
 echo
 
-if [[ $REPLY != ^[Yy]$ ]]
-then
+if ! [[ $REPLY =~ ^[Yy]$ ]]; then
 	exit 0
-fi
-
-# Basic check to see if this is a valid Drupal install.
-if [ -z "${drupal_path}" ] || [ ! -d "${drupal_path}/sites" ] || [ ! -f "${drupal_path}/modules/system/system.module" ]; then
-  printf "Please provide a valid Drupal path.\n"
-  print_help
-  exit 1
-fi
-
-# Basic check to see if a valid user is provided.
-if [ -z "${drupal_user}" ] || [ $(id -un ${drupal_user} 2> /dev/null) != "${drupal_user}" ]; then
-  printf "Please provide a valid user.\n"
-  print_help
-  exit 1
 fi
 
 cd $drupal_path
