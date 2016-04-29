@@ -70,35 +70,39 @@ if [ -z "${drupal_user}" ] || [ $(id -un ${drupal_user} 2> /dev/null) != "${drup
   exit 1
 fi
 
-# Start changing permissions.
 cd $drupal_path
-printf "Changing ownership of all contents of \"${drupal_path}\":\n user => \"${drupal_user}\" \t group => \"${httpd_group}\"\n"
+printf "Changing ownership of all contents of ${drupal_path}:\n user => \"${drupal_user}\" \t group => \"${httpd_group}\"\n"
 chown -R ${drupal_user}:${httpd_group} .
 
-printf "Changing permissions of all directories inside \"${drupal_path}\" to \"rwxr-x---\"...\n"
+printf "Changing permissions...\n"
+printf "rwxr-x--- on all directories inside ${drupal_path}\n"
 find . -type d -exec chmod u=rwx,g=rx,o= '{}' \;
 
-printf "Changing permissions of all files inside \"${drupal_path}\" to \"rw-r-----\"...\n"
+printf "rw-r----- on all files       inside ${drupal_path}\n"
 find . -type f -exec chmod u=rw,g=r,o= '{}' \;
 
-printf "Changing permissions of \"files\" directories in \"${drupal_path}/sites\" to \"rwxrwx---\"...\n"
+printf "rwx------ on all files       inside ${drupal_path}/scripts\n"
+cd ${drupal_path}/scripts
+find . -type f -exec chmod u=rwx,g=,o= '{}' \;
+
+printf "rwxrwx--- on \"files\" directories in ${drupal_path}/sites\n"
 cd ${drupal_path}/sites
 find . -type d -name files -exec chmod ug=rwx,o= '{}' \;
 
-printf "Changing permissions of all files inside all \"files\" directories in \"${drupal_path}/sites\" to \"rw-rw----\"...\n"
-printf "Changing permissions of all directories inside all \"files\" directories in \"${drupal_path}/sites\" to \"rwxrwx---\"...\n"
+printf "rw-rw---- on all files       inside all /files directories in ${drupal_path}/sites,\n"
+printf "rwxrwx--- on all directories inside all /files directories in ${drupal_path}/sites:\n"
 for x in ./*/files; do
-  printf "Changing permissions ${x} ...\n"
+  printf "\tChanging permissions in ${drupal_path}/sites/${x}\n"
   find ${x} -type d -exec chmod ug=rwx,o= '{}' \;
   find ${x} -type f -exec chmod ug=rw,o= '{}' \;
 done
 
-printf "Changing permissions of \".git\" directories and files in \"${drupal_path}\" to \"rwx------\"...\n"
+printf "rwx------ on .git/ directories and files in ${drupal_path}\n"
 cd ${drupal_path}
 chmod -R u=rwx,go= .git
 chmod u=rwx,go= .gitignore
 
-printf "Changing permissions of various Drupal text files in \"${drupal_path}\" to \"rwx------\"...\n"
+printf "rwx------ on various Drupal text files in   ${drupal_path}\n"
 cd ${drupal_path}
 chmod u=rwx,go= CHANGELOG.txt
 chmod u=rwx,go= COPYRIGHT.txt
@@ -111,7 +115,7 @@ chmod u=rwx,go= UPGRADE.txt
 
 
 # Boost module permissions as recommended in https://www.drupal.org/node/1459690.
-printf "Changing permissions of Boost module cache directory \"${drupal_path}\" to \"rwxrwxr-x\"...\n"
+printf "rwxrwxr-x on Boost module cache directory   ${drupal_path}\n"
 cd ${drupal_path}/cache
 for x in ./*
 do
@@ -119,4 +123,4 @@ do
    find ${x} -type f -exec chmod ug=rw,o= '{}' \;
 done
 
-echo "Done setting proper permissions on files and directories"
+echo "Done setting proper permissions on files and directories."
