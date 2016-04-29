@@ -32,7 +32,8 @@ if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
 	exit
 fi
 
-# Is this really necessary?
+# Check for root being the executing user.
+# (TODO: Is this really necessary?)
 if [ $(id -u) != 0 ]; then
   printf "This script must be run as root.\n"
   exit 1
