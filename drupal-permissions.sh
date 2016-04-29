@@ -26,6 +26,12 @@ HELP
 exit 0
 }
 
+# Check for correct number of arguments.
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
+  print_help
+	exit
+fi
+
 # Is this really necessary?
 if [ $(id -u) != 0 ]; then
   printf "This script must be run as root.\n"
@@ -41,11 +47,6 @@ drupal_path=`realpath ${drupal_path}`
 
 if [ -z "${httpd_group}" ]; then
 	httpd_group=www-data
-fi
-
-if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
-  print_help
-	exit
 fi
 
 cat <<-CONFIRM
