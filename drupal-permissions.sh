@@ -109,4 +109,14 @@ chmod u=rwx,go= LICENSE.txt
 chmod u=rwx,go= MAINTAINERS.txt
 chmod u=rwx,go= UPGRADE.txt
 
+
+# Boost module permissions as recommended in https://www.drupal.org/node/1459690
+printf "Changing permissions of Boost module cache directory \"${drupal_path}\" to \"rwxrwxr-x\"...\n"
+cd ${drupal_path}/cache
+for x in ./*
+do
+   find ${x} -type d -exec chmod ug=rwx,o= '{}' \;
+   find ${x} -type f -exec chmod ug=rw,o= '{}' \;
+done
+
 echo "Done setting proper permissions on files and directories"
