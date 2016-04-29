@@ -116,16 +116,15 @@ fi
 
 printf "rwx------ on various Drupal text files in   ${drupal_path}\n"
 cd ${drupal_path}
-chmod u=rw,go= CHANGELOG.txt
-chmod u=rw,go= COPYRIGHT.txt
-chmod u=rw,go= INSTALL.mysql.txt
-chmod u=rw,go= INSTALL.pgsql.txt
-chmod u=rw,go= INSTALL.txt
-chmod u=rw,go= LICENSE.txt
-chmod u=rw,go= MAINTAINERS.txt
-chmod u=rw,go= README.txt
-chmod u=rw,go= UPGRADE.txt
-
+chmod u=rw,go= \
+	CHANGELOG.txt \
+	COPYRIGHT.txt \
+	INSTALL.*.txt \
+	INSTALL.txt \
+	LICENSE.txt \
+	MAINTAINERS.txt \
+	README.txt \
+	UPGRADE.txt
 
 # Boost module permissions as recommended in https://www.drupal.org/node/1459690.
 cd ${drupal_path}
