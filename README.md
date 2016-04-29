@@ -10,9 +10,9 @@ This script is used to fix permissions of a Drupal installation you need to prov
 
 Usage:
     
-		(sudo) bash ${0##*/} DRUPAL_PATH DRUPAL_USER [HTTPD_GROUP]
+		(sudo) bash drupal-permissions.sh DRUPAL_PATH DRUPAL_USER [HTTPD_GROUP]
 
 Examples: 
 
-		(sudo) bash ${0##*/} . john
-		(sudo) bash ${0##*/} . john www-data
+		(sudo) bash drupal-permissions.sh . john
+		(sudo) bash drupal-permissions.sh . john www-data
