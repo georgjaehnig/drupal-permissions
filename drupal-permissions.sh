@@ -97,10 +97,13 @@ for x in ./*/files; do
   find ${x} -type f -exec chmod ug=rw,o= '{}' \;
 done
 
-printf "rwx------ on .git/ directories and files in ${drupal_path}\n"
 cd ${drupal_path}
-chmod -R u=rwx,go= .git
-chmod u=rwx,go= .gitignore
+if [ -d ".git" ]; then
+	printf "rwx------ on .git/ directories and files in ${drupal_path}/.git\n"
+	cd ${drupal_path}
+	chmod -R u=rwx,go= .git
+	chmod u=rwx,go= .gitignore
+fi
 
 printf "rwx------ on various Drupal text files in   ${drupal_path}\n"
 cd ${drupal_path}
