@@ -12,12 +12,12 @@ if [ $(id -u) != 0 ]; then
   exit 1
 fi
 
-# Script arguments
+# Set (default) script arguments.
 drupal_path=${1%/}
 drupal_user=${2}
 httpd_group="${3:-www-data}"
 
-# Help menu
+# Help menu.
 print_help() {
 cat <<-HELP
 
@@ -36,7 +36,7 @@ HELP
 exit 0
 }
 
-# Parse Command Line Arguments
+# Parse command line arguments.
 while [ $# -gt 0 ]; do
   case "$1" in
     --drupal_path=*) 
@@ -56,21 +56,21 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-# Basic check to see if this is a valid Drupal install
+# Basic check to see if this is a valid Drupal install.
 if [ -z "${drupal_path}" ] || [ ! -d "${drupal_path}/sites" ] || [ ! -f "${drupal_path}/modules/system/system.module" ]; then
   printf "Please provide a valid Drupal path.\n"
   print_help
   exit 1
 fi
 
-# Basic check to see if valid user
+# Basic check to see if a valid user is provided.
 if [ -z "${drupal_user}" ] || [ $(id -un ${drupal_user} 2> /dev/null) != "${drupal_user}" ]; then
   printf "Please provide a valid user.\n"
   print_help
   exit 1
 fi
 
-# Start changing permissions
+# Start changing permissions.
 cd $drupal_path
 printf "Changing ownership of all contents of \"${drupal_path}\":\n user => \"${drupal_user}\" \t group => \"${httpd_group}\"\n"
 chown -R ${drupal_user}:${httpd_group} .
@@ -110,7 +110,7 @@ chmod u=rwx,go= MAINTAINERS.txt
 chmod u=rwx,go= UPGRADE.txt
 
 
-# Boost module permissions as recommended in https://www.drupal.org/node/1459690
+# Boost module permissions as recommended in https://www.drupal.org/node/1459690.
 printf "Changing permissions of Boost module cache directory \"${drupal_path}\" to \"rwxrwxr-x\"...\n"
 cd ${drupal_path}/cache
 for x in ./*
